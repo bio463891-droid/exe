@@ -1,0 +1,26 @@
+{
+  "name": "secret-codes-manager",
+  "version": "1.0.0",
+  "description": "لوحة تحكم وإدارة الأكواد الشاملة",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --win --x64"
+  },
+  "build": {
+    "appId": "com.secretcodes.manager",
+    "productName": "SecretCodesManager",
+    "win": {
+      "target": "nsis",
+      "icon": "icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  },
+  "devDependencies": {
+    "electron": "^28.0.0",
+    "electron-builder": "^24.9.1"
+  }
+}
