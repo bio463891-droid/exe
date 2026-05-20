@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>لوحة التحكم وإدارة الأكواد الشاملة</title>
+    <!-- استدعاء سكريبت Supabase المتوافق مع البيئة السحابية والفيدل -->
+    <script src="https://jsdelivr.net"></script>
+    <style>
+        * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; }
+        body { background-color: #F4F6F9; color: #1F2937; padding: 20px; font-size: 14px; text-align: right; }
+        .header { text-align: center; margin-bottom: 25px; background: #fff; padding: 15px; border-radius: 12px; border-bottom: 3px solid #4F46E5; }
+        .header h1 { font-size: 20px; color: #111827; }
+        .header p { font-size: 12px; color: #9CA3AF; margin-top: 5px; }
+        .card { background: #fff; border-radius: 12px; padding: 20px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); border: 1px solid #E5E7EB; margin-bottom: 25px; }
+        .card-title { font-size: 16px; font-weight: bold; margin-bottom: 15px; color: #374151; }
+        .input-group { display: flex; gap: 10px; margin-bottom: 15px; }
+        input[type="text"] { flex: 1; height: 42px; border: 1px solid #D1D5DB; border-radius: 8px; padding: 0 15px; font-size: 16px; text-align: center; font-weight: bold; background-color: #F9FAFB; }
+        button { height: 42px; padding: 0 20px; border-radius: 8px; border: none; font-weight: bold; cursor: pointer; color: #fff; }
+        .btn-blue { background-color: #2563EB; }
+        .btn-green { background-color: #10B981; }
+        .btn-indigo { background-color: #4F46E5; }
+        .list-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .list-title { font-size: 16px; font-weight: bold; color: #374151; }
+        table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 12px; overflow: hidden; border: 1px solid #E5E7EB; }
+        th, td { padding: 12px 15px; text-align: center; border-bottom: 1px solid #E5E7EB; }
+        th { background-color: #F3F4F6; color: #4B5563; font-weight: bold; }
+        .badge { padding: 4px 8px; border-radius: 6px; font-size: 12px; font-weight: bold; display: inline-block; }
+        .badge-available { background-color: #D1FAE5; color: #10B981; }
+        .badge-used { background-color: #FEE2E2; color: #EF4444; }
+        .code-value { font-weight: bold; color: #111827; }
+        .time-text { color: #6B7280; font-size: 12px; }
+        .empty-msg { color: #9CA3AF; padding: 30px 0; font-style: italic; }
+        .loader { display: none; text-align: center; color: #4F46E5; font-weight: bold; margin-bottom: 15px; }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>⚙️ لوحة الإدارة والمراقبة الشاملة</h1>
+        <p>مشروع الـ Electron متصل بـ Supabase</p>
+    </div>
+
+    <div class="loader" id="globalLoader">جاري معالجة طلبك وتحديث قاعدة البيانات...</div>
+
+    <div class="card">
+        <div class="card-title">✍️ إنشاء وإضافة أكواد جديدة للجدول</div>
+        <div class="input-group">
+            <input type="text" id="customCodeInput" placeholder="اكتب كوداً مخصصاً هنا للتخزين...">
+            <button class="btn-blue" id="btnAddCustom">💾 حفظ اليدوي</button>
+        </div>
+        <button class="btn-green" id="btnGenerateRandom" style="width: 100%;">🎲 توليد وحفظ كود عشوائي فوراً</button>
+    </div>
+
+    <div class="list-header">
+        <div class="list-title">📋 قائمة الأكواد وتواريخ تفعيلها بالسيرفر</div>
+        <button class="btn-indigo" id="btnRefresh">🔄 تحديث الجدول</button>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 15%;">المعرف (ID)</th>
+                <th style="width: 35%;">الكود السري</th>
+                <th style="width: 20%;">الحالة الحالية</th>
+                <th style="width: 30%;">تاريخ ووقت الأخذ (توقيت السيرفر UTC)</th>
+            </tr>
+        </thead>
+        <tbody id="codesTableBody">
+            <tr>
+                <td colspan="4" class="empty-msg">جاري تحميل البيانات الحية من مشروعك...</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script src="./renderer.js"></script>
+</body>
+</html>
